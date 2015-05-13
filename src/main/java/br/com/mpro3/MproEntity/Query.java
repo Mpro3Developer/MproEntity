@@ -1,12 +1,30 @@
 package br.com.mpro3.MproEntity;
 
 import android.util.Log;
-
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 /**
- * Created by Matheus Castello on 31/03/15.
+ * Class that builds queries.
+ * <p>Simple Example: Select all Books where name like java, and author like james:  <pre>
+ * {@code
+ * ArrayList<Book> books = new DataStore()
+ *                              .query(Book.class)
+ *                                    .where("name").like("java")
+ *                                    .and("author").like("james")
+ *                              .execute();
+ * }
+ * </pre> Reference Example: Select all Loans where name of Book in the Loan is like java
+ * and author of Book in the loan is like james: <br><br><pre>
+ * {@code
+ * ArrayList<Book> books = new DataStore()
+ *                              .query(Loan.class)
+ *                                    .where(Book.class, "name").like("java")
+ *                                    .and(Book.class, "author").like("james")
+ *                              .execute();
+ * }
+ * </pre></p>
+ * @param <T> The Entity class type from entities that will be returned from query
  */
 public class Query<T>
 {
@@ -120,8 +138,10 @@ public class Query<T>
     }
 
     /**
-     * Add EQUAL comparator in one query, use after (where, and, or)
-     * @param value The value filter for (where, and, or) seted field
+     * Add EQUAL comparator in one query, use after {@see br.com.mpro3.MproEntity.Query#where(String)},
+     * {@see br.com.mpro3.MproEntity.Query#and(String)}, {@see br.com.mpro3.MproEntity.Query#or(String)}
+     * @param value The value filter for {@see br.com.mpro3.MproEntity.Query#where(String)},
+     * {@see br.com.mpro3.MproEntity.Query#and(String)}, {@see br.com.mpro3.MproEntity.Query#or(String)} seted field
      * @return The query with equal filter added
      * @throws MproEntityError in case of use without call (where, and, or) before
      */
@@ -146,8 +166,10 @@ public class Query<T>
     }
 
     /**
-     * Add NOT EQUAL comparator in one query, use after (where, and , or)
-     * @param value The value filter for (where, and, or) seted field
+     * Add NOT EQUAL comparator in one query, use after {@see br.com.mpro3.MproEntity.Query#where(String)},
+     * {@see br.com.mpro3.MproEntity.Query#and(String)}, {@see br.com.mpro3.MproEntity.Query#or(String)}
+     * @param value The value filter for {@see br.com.mpro3.MproEntity.Query#where(String)},
+     * {@see br.com.mpro3.MproEntity.Query#and(String)}, {@see br.com.mpro3.MproEntity.Query#or(String)} seted field
      * @return The query with not equal filter added
      * @throws MproEntityError in case of use without call (where, and, or) before
      */
@@ -172,8 +194,10 @@ public class Query<T>
     }
 
     /**
-     * Add LIKE comparator in one query, use after (where, and, or)
-     * @param value The value filter for (where, and, or) seted field
+     * Add LIKE comparator in one query, use after {@see br.com.mpro3.MproEntity.Query#where(String)},
+     * {@see br.com.mpro3.MproEntity.Query#and(String)}, {@see br.com.mpro3.MproEntity.Query#or(String)}
+     * @param value The value filter for {@see br.com.mpro3.MproEntity.Query#where(String)},
+     * {@see br.com.mpro3.MproEntity.Query#and(String)}, {@see br.com.mpro3.MproEntity.Query#or(String)} seted field
      * @return The query with like filter added
      * @throws MproEntityError in case of use without call (where, and, or) before
      */
@@ -198,9 +222,12 @@ public class Query<T>
     }
 
     /**
-     * Add BETWEEN comparator in one query, use after (where, and, or)
-     * @param value1 The first value filter for (where, and, or) seted field
-     * @param value2 The second value filter for (where, and, or) seted field
+     * Add BETWEEN comparator in one query, use after {@see br.com.mpro3.MproEntity.Query#where(String)},
+     * {@see br.com.mpro3.MproEntity.Query#and(String)}, {@see br.com.mpro3.MproEntity.Query#or(String)}
+     * @param value1 The first value filter for {@see br.com.mpro3.MproEntity.Query#where(String)},
+     * {@see br.com.mpro3.MproEntity.Query#and(String)}, {@see br.com.mpro3.MproEntity.Query#or(String)} seted field
+     * @param value2 The second value filter for {@see br.com.mpro3.MproEntity.Query#where(String)},
+     * {@see br.com.mpro3.MproEntity.Query#and(String)}, {@see br.com.mpro3.MproEntity.Query#or(String)} seted field
      * @return The query with between filter added
      * @throws MproEntityError in case of use without call (where, and, or) before
      */
@@ -230,10 +257,13 @@ public class Query<T>
     }
 
     /**
-     * Add EQUAL comparator in one query, use after (where, and, or)
-     * @param value The value filter for (where, and, or) seted field
+     * Add EQUAL comparator in one query, use after {@see br.com.mpro3.MproEntity.Query#where(String)},
+     * {@see br.com.mpro3.MproEntity.Query#and(String)}, {@see br.com.mpro3.MproEntity.Query#or(String)}
+     * @param value The value filter for {@see br.com.mpro3.MproEntity.Query#where(String)},
+     * {@see br.com.mpro3.MproEntity.Query#and(String)}, {@see br.com.mpro3.MproEntity.Query#or(String)} seted field
      * @return The query with equal filter added
-     * @throws MproEntityError in case of use without call (where, and, or) before
+     * @throws MproEntityError in case of use without call {@see br.com.mpro3.MproEntity.Query#where(String)},
+     * {@see br.com.mpro3.MproEntity.Query#and(String)}, {@see br.com.mpro3.MproEntity.Query#or(String)} before
      */
     public Query bigger(Object value)
     {
@@ -256,10 +286,13 @@ public class Query<T>
     }
 
     /**
-     * Add LESS comparator in one query, use after (where, and, or)
-     * @param value The value filter for (where, and, or) seted field
+     * Add LESS comparator in one query, use after {@see br.com.mpro3.MproEntity.Query#where(String)},
+     * {@see br.com.mpro3.MproEntity.Query#and(String)}, {@see br.com.mpro3.MproEntity.Query#or(String)}
+     * @param value The value filter for {@see br.com.mpro3.MproEntity.Query#where(String)},
+     * {@see br.com.mpro3.MproEntity.Query#and(String)}, {@see br.com.mpro3.MproEntity.Query#or(String)} seted field
      * @return The query with less filter added
-     * @throws MproEntityError in case of use without call (where, and, or) before
+     * @throws MproEntityError in case of use without call {@see br.com.mpro3.MproEntity.Query#where(String)},
+     * {@see br.com.mpro3.MproEntity.Query#and(String)}, {@see br.com.mpro3.MproEntity.Query#or(String)} before
      */
     public Query less(Object value)
     {
@@ -282,10 +315,13 @@ public class Query<T>
     }
 
     /**
-     * Add BIGGER AND EQUAL comparator in one query, use after (where, and, or)
-     * @param value The value filter for (where, and, or) seted field
+     * Add BIGGER AND EQUAL comparator in one query, use after {@see br.com.mpro3.MproEntity.Query#where(String)},
+     * {@see br.com.mpro3.MproEntity.Query#and(String)}, {@see br.com.mpro3.MproEntity.Query#or(String)}
+     * @param value The value filter for {@see br.com.mpro3.MproEntity.Query#where(String)},
+     * {@see br.com.mpro3.MproEntity.Query#and(String)}, {@see br.com.mpro3.MproEntity.Query#or(String)} seted field
      * @return The query with bigger and equal filter added
-     * @throws MproEntityError in case of use without call (where, and, or) before
+     * @throws MproEntityError in case of use without call {@see br.com.mpro3.MproEntity.Query#where(String)},
+     * {@see br.com.mpro3.MproEntity.Query#and(String)}, {@see br.com.mpro3.MproEntity.Query#or(String)} before
      */
     public Query biggerAndEqual(Object value)
     {
@@ -308,10 +344,13 @@ public class Query<T>
     }
 
     /**
-     * Add LESS AND EQUAL comparator in one query, use after (where, and, or)
-     * @param value The value filter for (where, and, or) seted field
+     * Add LESS AND EQUAL comparator in one query, use after {@see br.com.mpro3.MproEntity.Query#where(String)},
+     * {@see br.com.mpro3.MproEntity.Query#and(String)}, {@see br.com.mpro3.MproEntity.Query#or(String)}
+     * @param value The value filter for {@see br.com.mpro3.MproEntity.Query#where(String)},
+     * {@see br.com.mpro3.MproEntity.Query#and(String)}, {@see br.com.mpro3.MproEntity.Query#or(String)} seted field
      * @return The query with less and equal filter added
-     * @throws MproEntityError in case of use without call (where, and, or) before
+     * @throws MproEntityError in case of use without call {@see br.com.mpro3.MproEntity.Query#where(String)},
+     * {@see br.com.mpro3.MproEntity.Query#and(String)}, {@see br.com.mpro3.MproEntity.Query#or(String)} before
      */
     public Query lessAndEqual(Object value)
     {
@@ -334,9 +373,14 @@ public class Query<T>
     }
 
     /**
-     *
-     * @param field
-     * @return
+     * Add AND operator in one query, user after {@see br.com.mpro3.MproEntity.Query#like(Object)},
+     * {@see br.com.mpro3.MproEntity.Query#equal(Object)}, {@see br.com.mpro3.MproEntity.Query#bigger(Object)},
+     * {@see br.com.mpro3.MproEntity.Query#less(Object)} etc ...
+     * @param field The desired field for filter in Entity
+     * @return The query with "and" operator added
+     * @throws MproEntityError in case of use without call {@see br.com.mpro3.MproEntity.Query#like(Object)},
+     * {@see br.com.mpro3.MproEntity.Query#equal(Object)}, {@see br.com.mpro3.MproEntity.Query#bigger(Object)},
+     * {@see br.com.mpro3.MproEntity.Query#less(Object)} etc ... before
      */
     public Query and(String field)
     {
@@ -356,6 +400,18 @@ public class Query<T>
         return this;
     }
 
+    /**
+     * Add AND operator in one query, user after {@see br.com.mpro3.MproEntity.Query#like(Object)},
+     * {@see br.com.mpro3.MproEntity.Query#equal(Object)}, {@see br.com.mpro3.MproEntity.Query#bigger(Object)},
+     * {@see br.com.mpro3.MproEntity.Query#less(Object)} etc ...
+     * @param cl The Entity class type for query in referenced entities from the Entity passed in this instance of {@see br.com.mpro3.MproEntity.Query}
+     * @param field The desired field for filter in referenced Entity
+     * @return The query with "and" operator added
+     * @throws MproEntityError in case of use without call {@see br.com.mpro3.MproEntity.Query#like(Object)},
+     * {@see br.com.mpro3.MproEntity.Query#equal(Object)}, {@see br.com.mpro3.MproEntity.Query#bigger(Object)},
+     * {@see br.com.mpro3.MproEntity.Query#less(Object)} etc ... before
+     * @throws NoSuchFieldException in case of field name passed as parameter not exist in the Entity referenced
+     */
     public Query and(Class cl, String field) throws NoSuchFieldException
     {
         if(checkThat() && steps.contains("whereo"))
@@ -373,6 +429,16 @@ public class Query<T>
         return this;
     }
 
+    /**
+     * Add OR operator in one query, user after {@see br.com.mpro3.MproEntity.Query#like(Object)},
+     * {@see br.com.mpro3.MproEntity.Query#equal(Object)}, {@see br.com.mpro3.MproEntity.Query#bigger(Object)},
+     * {@see br.com.mpro3.MproEntity.Query#less(Object)} etc ...
+     * @param field The desired field for filter in Entity
+     * @return The query with "or" operator added
+     * @throws MproEntityError in case of use without call {@see br.com.mpro3.MproEntity.Query#like(Object)},
+     * {@see br.com.mpro3.MproEntity.Query#equal(Object)}, {@see br.com.mpro3.MproEntity.Query#bigger(Object)},
+     * {@see br.com.mpro3.MproEntity.Query#less(Object)} etc ... before
+     */
     public Query or(String field)
     {
         if(steps.size() > 0 && checkThat() && !steps.contains("whereo"))
@@ -391,6 +457,18 @@ public class Query<T>
         return this;
     }
 
+    /**
+     * Add OR operator in one query, user after {@see br.com.mpro3.MproEntity.Query#like(Object)},
+     * {@see br.com.mpro3.MproEntity.Query#equal(Object)}, {@see br.com.mpro3.MproEntity.Query#bigger(Object)},
+     * {@see br.com.mpro3.MproEntity.Query#less(Object)} etc ...
+     * @param cl The Entity class type for query in referenced entities from the Entity passed in this instance of {@see br.com.mpro3.MproEntity.Query}
+     * @param field The desired field for filter in referenced Entity
+     * @return The query with "or" operator added
+     * @throws MproEntityError in case of use without call {@see br.com.mpro3.MproEntity.Query#like(Object)},
+     * {@see br.com.mpro3.MproEntity.Query#equal(Object)}, {@see br.com.mpro3.MproEntity.Query#bigger(Object)},
+     * {@see br.com.mpro3.MproEntity.Query#less(Object)} etc ... before
+     * @throws NoSuchFieldException in case of field name passed as parameter not exist in the Entity referenced
+     */
     public Query or(Class cl, String field) throws NoSuchFieldException
     {
         if(checkThat() && steps.contains("whereo"))
@@ -408,6 +486,12 @@ public class Query<T>
         return this;
     }
 
+    /**
+     * Add ORDER BY command in one query, use {@see br.com.mpro3.MproEntity.Query#asc()} to order by field ascending
+     * or {@see br.com.mpro3.MproEntity.Query#desc()} to order by field descending after
+     * @param field The desired field to order
+     * @return The query with "orderBy" command added
+     */
     public Query orderBy(String field)
     {
         this.objectInfo.OrderBy = " " + field;
@@ -415,6 +499,12 @@ public class Query<T>
         return this;
     }
 
+    /**
+     * Add ASC operator in one query, for order by ascending.
+     * Use after {@see br.com.mpro3.MproEntity.Query#orderBy(String)}
+     * @return The query with "asc" operator added
+     * @throws MproEntityError in case of use without call {@see br.com.mpro3.MproEntity.Query#orderBy(String)} before
+     */
     public Query asc()
     {
         if(steps.get(steps.size() -1).equals("order"))
@@ -427,6 +517,12 @@ public class Query<T>
         return this;
     }
 
+    /**
+     * Add DESC operator in one query, for order by descending.
+     * Use after {@see br.com.mpro3.MproEntity.Query#orderBy(String)}
+     * @return The query with "asc" operator added
+     * @throws MproEntityError in case of use without call {@see br.com.mpro3.MproEntity.Query#orderBy(String)} before
+     */
     public Query desc()
     {
         if(steps.get(steps.size() -1).equals("order"))
@@ -439,6 +535,12 @@ public class Query<T>
         return this;
     }
 
+    /**
+     * Add LIMIT operator in one query, limiting the begin and the size of query result between the inferior and superior limit
+     * @param limitInf The inferior limit
+     * @param limitSup The superior limit
+     * @return The query with "limit" operator added
+     */
     public Query limit(int limitInf, int limitSup)
     {
         this.objectInfo.Limiter = new int[2];
@@ -466,6 +568,11 @@ public class Query<T>
         return true;
     }
 
+    /**
+     * Translate the query calls in sql commands and execute
+     * @return The collection of entities that satisfy the query executed
+     * @throws MproEntityError in case of incomplete call order from the query methods
+     */
     public ArrayList<T> execute()
     {
         if(checkTuples())

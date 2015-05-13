@@ -11,7 +11,16 @@
     import java.util.logging.Logger;
 
     /**
-     * Created by Matheus Castello on 18/03/15.
+     * Exposes methods to execute sql commands in SQLite database.
+     *
+     * <p>
+     * DBManager has methods to execute sql commands:<br>
+     * <ul><li>{@see br.com.mpro3.MproEntity.DBManager#execute(String)} to execute sql commands with no retrieve data;</li>
+     * <li>{@see br.com.mpro3.MproEntity.DBManager#query(String)} to execute sql commands with retrieve data;</li>
+     * </ul><br>
+     * Use {@see br.com.mpro3.MproEntity.customSQLiteOpenHelper} for create a SQLite
+     * database file.
+     * </p>
      */
 
     public class DBManager

@@ -1,8 +1,10 @@
 package br.com.mpro3.MproEntity;
 
 /**
- * Created by Matheus Castello on 18/03/15.
+ * In one {@see br.com.mpro3.MproEntity.Entity} noted class,
+ * note with @Transient one field it should not be mapped to the database table.
  */
+
 public @interface Transient
 {
 }

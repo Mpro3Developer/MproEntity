@@ -1,7 +1,8 @@
 package br.com.mpro3.MproEntity;
 
 /**
- * Created by matheus on 21/03/15.
+ * Utility class overloaded methods with different values types for use with reflection by
+ * setting a value type that corresponds to the type of field in {@see br.com.mpro3.MproEntity.Entity} noted class.
  */
 public class Value
 {
@@ -17,6 +18,11 @@ public class Value
     private boolean isShort = false;
     private boolean isLong = false;
 
+    /**
+     * Receive one value in string and store the cast value in the type passed as parameter
+     * @param type java.lang type name string
+     * @param val the string representation of value
+     */
     public Value(String type, String val)
     {
         if(type.equals("String"))
@@ -46,6 +52,10 @@ public class Value
         }
     }
 
+    /**
+     * Receive one Object value
+     * @param val Object value
+     */
     public Value(Object val)
     {
         if(val.getClass().getSimpleName().equals("String"))
@@ -60,47 +70,79 @@ public class Value
         }
     }
 
+    /**
+     * Receive one String value
+     * @param val String value
+     */
     public Value(String val)
     {
         isString = true;
         this.valueString = val;
     }
 
+    /**
+     * Receive one Object value
+     * @param val Object value
+     */
     public Value(int val)
     {
         isInt = true;
         this.valueInt = val;
     }
 
+    /**
+     * Receive one Object value
+     * @param val Object value
+     */
     public Value(short val)
     {
         isShort = true;
         this.valueShort = val;
     }
 
+    /**
+     * Receive one Object value
+     * @param val Object value
+     */
     public Value(long val)
     {
         isLong = true;
         this.valueLong = val;
     }
 
+    /**
+     * Receive one Object value
+     * @param val Object value
+     */
     public Value(float val)
     {
         isNumber = true;
         this.valueDouble = val;
     }
 
+    /**
+     * Receive one Object value
+     * @param val Object value
+     */
     public Value(double val)
     {
         isNumber = true;
         this.valueDouble = val;
     }
 
+    /**
+     * Tes if the type of value stored is String
+     * @return true if the value stored is one String
+     */
     public boolean isString()
     {
         return isString;
     }
 
+    /**
+     * Return the Object generic value stored
+     * @return the value stored
+     */
     public Object getValue()
     {
         if(isNumber)

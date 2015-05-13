@@ -4,7 +4,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * Created by Matheus Castello on 18/03/15.
+ * Note classes with @Entity for define class as a data entity mapped in database
  */
 
 @Retention(RetentionPolicy.RUNTIME)

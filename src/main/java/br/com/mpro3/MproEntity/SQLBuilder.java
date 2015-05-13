@@ -5,7 +5,8 @@ import java.util.HashMap;
 
 
 /**
- * Created by Matheus Castello on 18/03/15.
+ * Utility class for build of sql commands based on the entity reflection information
+ * and {@see br.com.mpro3.MproEntity.Query} calls
  */
 
 public class SQLBuilder

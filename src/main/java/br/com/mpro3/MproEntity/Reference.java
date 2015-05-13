@@ -4,7 +4,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
- * Created by Matheus Castello on 18/03/15.
+ * In one {@see br.com.mpro3.MproEntity.Entity} noted class,
+ * note with @Reference the ArrayList collection field of referenced entities of Entity
  */
 
 @Retention(RetentionPolicy.RUNTIME)

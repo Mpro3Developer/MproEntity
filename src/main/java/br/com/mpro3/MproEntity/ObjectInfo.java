@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Created by Matheus Castello on 18/03/15.
+ * Class that stores information retrieved through reflection by {@see br.com.mpro3.MproEntity.DataStore}
  */
 public class ObjectInfo
 {

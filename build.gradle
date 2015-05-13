@@ -10,6 +10,7 @@ android {
         versionCode 1
         versionName "1.0"
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -21,4 +22,100 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.0.0'
+}
+
+
+android.libraryVariants.all { variant ->
+    task("${variant.name}Javadoc", type: Javadoc, dependsOn: "assemble${variant.name}") {
+        source = variant.javaCompile.source
+
+        title = "My Awesome Library API"
+
+        options.links("http://docs.oracle.com/javase/7/docs/api/");
+        options.linksOffline("http://d.android.com/reference","${android.sdkDirectory}/docs/reference");
+
+        // First add all of your dependencies to the classpath, then add the android jars
+        classpath += files(variant.javaCompile.classpath.files)
+        classpath += files(android.getBootClasspath())
+
+        // We're excluding these generated files
+        exclude '**/BuildConfig.java'
+        exclude '**/R.java'
+    }
+}
+
+android.libraryVariants.all { variant ->
+    task("${variant.name}JavadocJar", type: Jar, dependsOn: "${variant.name}Javadoc") {
+        classifier = 'javadoc'
+        from tasks["${variant.name}Javadoc"].destinationDir
+    }
+
+    // Add the Javadoc jar to the project's artifacts. This will allow us to upload it easily later
+    project.artifacts.add("archives", tasks["${variant.name}JavadocJar"]);
+}
+
+
+task copyArrToRepository << {
+    copy
+    {
+        from("build/outputs/aar/")
+        into("/home/matheus/GITHUB/Mpro3Developer.github.io/")
+        include("MproEntity-debug.aar")
+        rename("MproEntity-debug.aar", "MproEntity" + android.defaultConfig.versionName + ".aar")
+    }
+}
+
+task copyJarToRepository << {
+    copy
+    {
+        from("build/intermediates/bundles/debug/")
+        into("/home/matheus/GITHUB/Mpro3Developer.github.io/")
+        include("classes.jar")
+        rename("classes.jar", "MproEntity" + android.defaultConfig.versionName + ".jar")
+    }
+}
+
+task copyJavaDocToRepository << {
+    copy
+    {
+        from("build/libs/")
+        into("/home/matheus/GITHUB/Mpro3Developer.github.io/")
+        include("MproEntity-javadoc.jar")
+        rename("MproEntity-javadoc.jar", "MproEntity" + android.defaultConfig.versionName + "-javadoc.jar")
+    }
+}
+
+task copyJavaSourceToRepository << {
+    copy
+    {
+        from("build/libs/")
+        into("/home/matheus/GITHUB/Mpro3Developer.github.io/")
+        include("MproEntity-sources.jar")
+        rename("MproEntity-sources.jar", "MproEntity" + android.defaultConfig.versionName + "-sources.jar")
+    }
+}
+
+task cleanExtra(type: Delete) {
+    println "Deleting last output .arr"
+    delete "/home/matheus/GITHUB/Mpro3Developer.github.io/MproEntity" + android.defaultConfig.versionName + ".aar"
+    delete "/home/matheus/GITHUB/Mpro3Developer.github.io/MproEntity" + android.defaultConfig.versionName + ".jar"
+    delete "/home/matheus/GITHUB/Mpro3Developer.github.io/MproEntity" + android.defaultConfig.versionName + "-sources.jar"
+    delete "/home/matheus/GITHUB/Mpro3Developer.github.io/MproEntity" + android.defaultConfig.versionName + "-javadoc.jar"
+}
+
+task sourcesJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier = 'sources'
+}
+
+preBuild.dependsOn(cleanExtra)
+
+assembleDebug.doLast{
+    tasks.debugJavadoc.execute()
+    tasks.debugJavadocJar.execute()
+    tasks.sourcesJar.execute()
+    tasks.copyArrToRepository.execute()
+    tasks.copyJarToRepository.execute()
+    tasks.copyJavaDocToRepository.execute()
+    tasks.copyJavaSourceToRepository.execute()
 }

@@ -1,7 +1,7 @@
 package br.com.mpro3.MproEntity;
 
 /**
- * Created by matheus on 06/05/15.
+ * Custom error class to differentiate java errors from MproEntities errors
  */
 public class MproEntityError extends Error
 {
